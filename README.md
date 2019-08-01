@@ -1,3 +1,9 @@
+# SEA PAY Front end
+
+TODO :
+- Add React Router, https://facebook.github.io/create-react-app/docs/adding-a-router
+- Create fake auth
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
