@@ -1,8 +1,12 @@
 # SEA PAY Front end
 
-TODO :
-- Add React Router, https://facebook.github.io/create-react-app/docs/adding-a-router
-- Create fake auth
+
+## Additional Modules
+Other than from `create-react-app`:
+- [formik](https://github.com/jaredpalmer/formik)
+- [react-router](https://reacttraining.com/react-router/web/guides/quick-start)
+-
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
