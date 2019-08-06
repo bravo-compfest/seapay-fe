@@ -8,6 +8,7 @@ SEA PAY is an web application for changing your perspective about money. SEA PAY
 
 - [Requirements](#requirement)
 - [How to Install](#how-to-install)
+- [Contributing](#contributing)
 
 ## Requirements
 
