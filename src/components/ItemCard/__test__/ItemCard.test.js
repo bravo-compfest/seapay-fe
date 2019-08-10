@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import ItemCard from './ItemCard';
+import ItemCard from '..';
 import Typography from '@material-ui/core/Typography';
 
 describe('<ItemCard />', () => {
