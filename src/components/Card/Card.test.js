@@ -1,9 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { shallow } from 'enzyme';
 import Card from './Card';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<Card />, div);
-  ReactDOM.unmountComponentAtNode(div);
+describe('<Card />', () => {
+  it ('contains h1 in card', () => {
+    const card = shallow(<Card />);
+    expect(card.find('h1').length).toEqual(1);
+  });
 });
