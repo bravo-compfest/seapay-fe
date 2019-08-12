@@ -8,6 +8,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>Welcome to SEA PAY</h1>
+        <h2>This site is under maintenance</h2>
       </header>
     </div>
   );
