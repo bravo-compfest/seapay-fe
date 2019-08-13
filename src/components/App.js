@@ -1,13 +1,13 @@
 import React from 'react';
 
-import SignUpPage from './SignUpPage/SignUpPage';
+import LogInPage from './LogInPage/LogInPage';
 
 import '../assets/bootstrap.min.css';
 import '../assets/App.css';
 
 function App() {
   return (
-    <SignUpPage />
+    <LogInPage />
   );
 }
 
