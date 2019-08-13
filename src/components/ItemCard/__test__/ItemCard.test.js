@@ -12,9 +12,4 @@ describe('<ItemCard />', () => {
     const card = shallow(<ItemCard />);
     expect(card.find(<Typography />));
   });
-
-  it ('contain specific text', () => {
-    const card = shallow(<ItemCard />);
-    expect(card.text()).toEqual('This is a card.');
-  });
 });

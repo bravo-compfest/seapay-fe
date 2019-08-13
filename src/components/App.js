@@ -5,7 +5,6 @@ import LogInPage from './LogInPage/LogInPage';
 import SignUpPage from './SignUpPage/SignUpPage';
 
 import '../assets/bootstrap.min.css';
-import '../assets/App.css';
 
 //TODO: Separate this, it's only for temporary
 function HomePage() {
