@@ -54,7 +54,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export function LogInPage() {
+export default function LogInPage() {
   const classes = useStyles();
 
   return (
