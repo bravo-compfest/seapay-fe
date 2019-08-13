@@ -35,16 +35,12 @@ function NavigationBar() {
 
 function App() {
   return (
-<<<<<<< HEAD
-    <LogInPage />
-=======
     <Router>
       <NavigationBar />
       <Route exact path="/" component={HomePage} />
       <Route path="/login" component={LogInPage} />
       <Route path="/signup" component={SignUpPage} />
     </Router>
->>>>>>> e10de39465768d0acb913d582d5982758ce4d44f
   );
 }
 
