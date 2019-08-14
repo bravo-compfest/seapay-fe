@@ -15,7 +15,12 @@ const style = (theme) => ({
   },
   title: {
     flexGrow: 1,
-  }
+    color: '#333333',
+  },
+  appbar: {
+    boxShadow: 'none',
+    background: 'transparent',
+  },
 });
 
 class NavBar extends React.Component {
@@ -24,9 +29,9 @@ class NavBar extends React.Component {
     const { classes } = this.props;
 
     return (
-      <AppBar position="static">
+      <AppBar className={classes.appbar} position="static">
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+          <IconButton edge="start" className={classes.menuButton} aria-label="menu">
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
