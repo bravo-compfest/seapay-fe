@@ -1,5 +1,7 @@
 # SEA PAY
 
+[![CircleCI](https://circleci.com/gh/bravo-compfest/seapay-fe.svg?style=svg)](https://circleci.com/gh/bravo-compfest/seapay-fe)
+
 ## Front-end for SEA PAY application
 
 SEA PAY is an web application for changing your perspective about money. SEA PAY gives you an convenience to using a money.
