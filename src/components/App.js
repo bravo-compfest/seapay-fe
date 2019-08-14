@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import LogInPage from './LogInPage/LogInPage';
+import LoginPage from './LoginPage/LoginPage';
 import SignUpPage from './SignUpPage/SignUpPage';
 import NavBar from './NavBar';
 
@@ -12,8 +12,8 @@ class App extends React.Component {
     return (
       <Router>
         <NavBar />
-        <Route path="/" component={LogInPage} />
-        <Route path="/signup" component={SignUpPage} />
+        <Route exact path="/" component={LoginPage} />
+        <Route exact path="/signup" component={SignUpPage} />
       </Router>
     );
   }
