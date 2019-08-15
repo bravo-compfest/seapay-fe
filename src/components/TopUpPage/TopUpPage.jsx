@@ -13,38 +13,37 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function TopUpPage() {
-    const classes = useStyles();
-    
-    return (
-      <div>
-        <Grid container spacing={3}>
-          <Grid item xs={6}>
-            <Paper className={classes.paper}>
-                <Typography variant="h5">
-                    Top Up Balance
-                </Typography>
-                <TextField
-                    id="outlined-number"
-                    label="Nominal"
-                    value="0"
-                    type="number"
-                    InputLabelProps={{
-                    shrink: true,
-                    }}
-                    margin="normal"
-                    variant="outlined"
-                />
-                <Grid justify="flex-end">
-                    <Button variant="contained" spacing={3} color="primary">
-                        Top Up
-                    </Button>
-                </Grid>
+  const classes = useStyles();
 
-            </Paper>
-          </Grid>
+  return (
+    <div>
+      <Grid container spacing={3}>
+        <Grid item xs={6}>
+          <Paper className={classes.paper}>
+            <Typography variant="h5">
+              Top Up Balance
+            </Typography>
+            <TextField
+              id="outlined-number"
+              label="Nominal"
+              value="0"
+              type="number"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              margin="normal"
+              variant="outlined"
+            />
+            <Grid container justify="flex-start">
+              <Button variant="contained" spacing={3} color="primary">
+                Top Up
+              </Button>
+            </Grid>
+          </Paper>
         </Grid>
-      </div>
-    );
+      </Grid>
+    </div>
+  );
 }
 
-  export { TopUpPage };
+export default TopUpPage;

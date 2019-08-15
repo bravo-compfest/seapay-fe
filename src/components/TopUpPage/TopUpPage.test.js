@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {TopUpPage} from './TopUpPage';
+import TopUpPage from './TopUpPage';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
