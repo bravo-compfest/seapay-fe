@@ -32,7 +32,7 @@ const style = (theme) => ({
 });
 
 class LoginPage extends React.Component {
-  
+
   render() {
     const { classes } = this.props;
 
@@ -51,10 +51,10 @@ class LoginPage extends React.Component {
               variant="outlined"
               margin="normal"
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="username"
+              label="Username"
+              name="username"
+              autoComplete="username"
               autoFocus
             />
             <TextField
@@ -72,7 +72,6 @@ class LoginPage extends React.Component {
               label="Remember me"
             />
             <Button
-              type="submit"
               fullWidth
               variant="contained"
               color="primary"
