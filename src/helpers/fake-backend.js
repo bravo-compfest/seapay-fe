@@ -1,4 +1,4 @@
-import { Role } from './'
+import { Role } from './Role'
 
 export function configureFakeBackend() {
     let users = [
