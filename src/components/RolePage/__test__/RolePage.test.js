@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import RoleTab from '..';
+import RolePage from '..';
 
-describe('<RoleTab />', () => {
+describe('<RolePage />', () => {
   it ('render without crashing', () => {
-    shallow(<RoleTab />);
+    shallow(<RolePage />);
   });
 });
