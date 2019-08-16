@@ -76,6 +76,7 @@ class LoginPage extends React.Component {
               variant="contained"
               color="primary"
               className={classes.submit}
+              type="submit"
             >
               Sign In
           </Button>
@@ -86,7 +87,7 @@ class LoginPage extends React.Component {
               </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

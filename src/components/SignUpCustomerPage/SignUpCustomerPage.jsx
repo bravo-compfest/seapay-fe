@@ -33,7 +33,7 @@ const style = (theme) => ({
   },
 });
 
-class SignUpPage extends React.Component {
+class SignUpCustomerPage extends React.Component {
 
   render() {
     const { classes } = this.props;
@@ -119,7 +119,7 @@ class SignUpPage extends React.Component {
             </Button>
             <Grid container justify="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
@@ -131,4 +131,4 @@ class SignUpPage extends React.Component {
   }
 }
 
-export default withStyles(style, { withTheme: true })(SignUpPage);
+export default withStyles(style, { withTheme: true })(SignUpCustomerPage);
