@@ -42,10 +42,10 @@ class LoginPage extends React.Component {
         <div className={classes.paper}>
           <Typography gutterBottom component="h1" variant="h2">
             Hello
-        </Typography>
+          </Typography>
           <Typography component="h1" variant="subtitle1">
             Welcome back, please login to your account
-        </Typography>
+          </Typography>
           <form className={classes.form} noValidate>
             <TextField
               variant="outlined"

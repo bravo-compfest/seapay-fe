@@ -1,7 +1,13 @@
 import React from 'react';
 
-export function Dashboard() {
-  return (
-      <h1>This is a Dashboard</h1>
-  );
+import NavBar from '../NavBar';
+
+class Dashboard extends React.Component {
+  render() {
+    return (
+      <NavBar />
+    );
+  }
 }
+
+export default Dashboard;
