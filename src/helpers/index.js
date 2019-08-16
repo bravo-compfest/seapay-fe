@@ -1,5 +1,4 @@
 export * from './auth-header';
 export * from './fake-backend';
 export * from './handle-response';
-//export * from './history';
-//export * from './Role';
+export * from './history';
