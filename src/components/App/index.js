@@ -2,7 +2,6 @@ import React from 'react';
 import { Router, Route } from "react-router-dom";
 import PrivateRoute from './PrivateRoute';
 import { history } from '../../helpers';
-import { authenticationService } from '../../services';
 
 import LoginPage from '../LoginPage/LoginPage';
 import SignUpCustomerPage from '../SignUpCustomerPage/SignUpCustomerPage';
@@ -19,15 +18,16 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      currentUser: null
+      isAuthenticated: false,
     }
   }
 
   componentDidMount(){
-    authenticationService.currentUser.subscribe(user => {
-      this.setState({
-      currentUser: user,
-    })})
+    // authenticationService.currentUser.subscribe(user => {
+    //   this.setState({
+    //   currentUser: user,
+    // })})
+    this.setState({ isAuthenticated: localStorage.getItem('isAuthenticated')});
   }
 
   render() {
