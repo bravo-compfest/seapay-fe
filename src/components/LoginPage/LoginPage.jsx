@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { authenticationService } from '../../services';
+import axios from 'axios';
 
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -38,13 +38,49 @@ const style = (theme) => ({
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
+    
+    this.state = {
+      username: '',
+      isAuthenticated: false,
+    }
 
-    // redirect to home if already logged in
-    if (authenticationService.currentUserValue) { 
-        this.props.history.push('/dashboard');
+    this.handleLogin = this.handleLogin.bind(this);
+  }
+
+  handleLogin(username, password) {
+    axios({
+      method: 'post',
+      url: 'http://localhost:8088/restapi/customers/login',
+      data: {
+        username: username,
+        password: password,
+      }
+    })
+    .then((response) => {
+      this.setState({
+        username: username,
+        isAuthenticated: response.data.response === 'success' ? true : false,
+      });
+      this.saveSession();
+      const { from } = this.props.location.state || { from: { pathname: "/dashboard" }};
+      this.props.history.push(from);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+
+  saveSession() {
+    localStorage.setItem('username', this.state.username);
+    localStorage.setItem('isAuthenticated', this.state.isAuthenticated);
+  }
+
+  componentDidMount() {
+    if (localStorage.getItem('isAuthenticated')) {
+      this.props.history.push("/dashboard");
     }
   }
-  
+
   render() {
     const { classes } = this.props;
 
@@ -64,26 +100,11 @@ class LoginPage extends React.Component {
               username: Yup.string().required('Username is required'),
               password: Yup.string().required('Password is required')
             })}
-            onSubmit={({ username, password }, { setStatus, setSubmitting }) => {
-              console.log("Submit");
-              setStatus();
-              authenticationService.login(username, password).then(
-                user => {
-                  console.log("submitted");
-                  const { from } = this.props.location.state || { from: { pathname: "/" } };
-                  this.props.history.push(from);
-                },
-                error => {
-                  console.log("Error");
-                  setSubmitting(false);
-                  setStatus(error);
-                }
-              );
-            }}
+            onSubmit={({ username, password }) => this.handleLogin(username, password)}
             render={({ errors, status, touched, isSubmitting }) => (
               <Form className={classes.form}>
-                <Field 
-                  name="username" 
+                <Field
+                  name="username"
                   type="text"
                   component={LogInField}
                 />
@@ -91,7 +112,7 @@ class LoginPage extends React.Component {
                   name="username"
                   component="div"
                 />
-                <Field 
+                <Field
                   name="password"
                   type="password"
                   component={PasswordField}
@@ -111,30 +132,30 @@ class LoginPage extends React.Component {
                   color="primary"
                   className={classes.submit}
                 >
-                Sign In
+                  Sign In
                 </Button>
               </Form>
             )}
           />
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
+          <Grid container>
+            <Grid item xs>
+              <Link href="#" variant="body2">
+                Forgot password?
               </Link>
-              </Grid>
-              <Grid item>
-                <Link href="/signup" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
             </Grid>
+            <Grid item>
+              <Link href="/signup" variant="body2">
+                {"Don't have an account? Sign Up"}
+              </Link>
+            </Grid>
+          </Grid>
         </div>
       </Container>
     );
   }
 }
 
-const LogInField = ({field, form: {touched, errors}, ...props}) => (
+const LogInField = ({ field, form: { touched, errors }, ...props }) => (
   <TextField
     {...field} {...props}
     variant="outlined"
@@ -146,7 +167,7 @@ const LogInField = ({field, form: {touched, errors}, ...props}) => (
   />
 );
 
-const PasswordField = ({field, form: {touched, errors}, ...props}) => (
+const PasswordField = ({ field, form: { touched, errors }, ...props }) => (
   <TextField
     {...field} {...props}
     variant="outlined"
