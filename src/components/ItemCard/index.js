@@ -19,12 +19,9 @@ const style = (theme) => ({
 });
 
 class ItemCard extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
+  
   render() {
-    const { classes, theme } = this.props;
+    const { classes } = this.props;
 
     return(
       <Card className={classes.card}>
