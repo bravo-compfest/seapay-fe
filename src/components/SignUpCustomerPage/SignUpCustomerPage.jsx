@@ -1,4 +1,8 @@
 import React from 'react';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import axios from 'axios';
+
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -34,6 +38,15 @@ const style = (theme) => ({
 });
 
 class SignUpCustomerPage extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.handleSignUp = this.handleSignUp.bind(this);
+  }
+
+  handleSignUp(firstName, lastName, email, phone, password) {
+
+  }
 
   render() {
     const { classes } = this.props;
@@ -48,87 +61,167 @@ class SignUpCustomerPage extends React.Component {
           <Typography component="h1" variant="subtitle1">
             Please fill up your details below
           </Typography>
-          <form className={classes.form} noValidate>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="fname"
-                  name="firstName"
-                  variant="outlined"
-                  required
+          <Formik
+            initialValues={{ firstName: '', lastName: '', email: '', phone: '', password: '' }}
+            validationSchema={Yup.object().shape({
+              firstName: Yup.string().required('First Name is required'),
+              email: Yup.string().required('Email is required'),
+              phone: Yup.string().required('Phone Number is required'),
+              password: Yup.string().required('Password is required'),
+            })}
+            onSubmit={({ firstName, lastName, email, phone, password }) => this.handleSignUp(firstName, lastName, email, phone, password)}
+            render={({ errors, status, touched, isSubmiting }) => (
+              <form className={classes.form}>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} sm={6}>
+                    <Field 
+                      name="firstName"
+                      type="text"
+                      component={FirstNameField}
+                    />
+                    <ErrorMessage
+                      name="firstName"
+                      component="div"
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      variant="outlined"
+                      fullWidth
+                      id="lastName"
+                      label="Last Name"
+                      name="lastName"
+                      autoComplete="lname"
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      variant="outlined"
+                      required
+                      fullWidth
+                      id="email"
+                      label="Email Address"
+                      name="email"
+                      autoComplete="email"
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      variant="outlined"
+                      required
+                      fullWidth
+                      id="phoneNumber"
+                      label="Phone Number"
+                      name="phoneNumber"
+                      autoComplete="number"
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      variant="outlined"
+                      required
+                      fullWidth
+                      name="password"
+                      label="Password"
+                      type="password"
+                      id="password"
+                      autoComplete="current-password"
+                    />
+                  </Grid>
+                </Grid>
+                <Button
+                  type="submit"
                   fullWidth
-                  id="firstName"
-                  label="First Name"
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="lname"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="phoneNumber"
-                  label="Phone Number"
-                  name="phoneNumber"
-                  autoComplete="number"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                />
-              </Grid>
-            </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Sign Up
-            </Button>
-            <Grid container justify="flex-end">
-              <Grid item>
-                <Link href="/" variant="body2">
-                  Already have an account? Sign in
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                >
+                  Sign Up
+                </Button>
+                <Grid container justify="flex-end">
+                  <Grid item>
+                    <Link href="/" variant="body2">
+                      Already have an account? Sign in
                 </Link>
-              </Grid>
-            </Grid>
-          </form>
+                  </Grid>
+                </Grid>
+              </form>
+            )}
+          />
         </div>
       </Container>
     );
   }
 }
+
+const FirstNameField = ({ field, form: { touched, errors }, ...props }) => (
+  <TextField
+    {...field} {...props}
+    autoComplete="fname"
+    name="firstName"
+    variant="outlined"
+    required
+    fullWidth
+    id="firstName"
+    label="First Name"
+    autoFocus
+  />
+);
+
+const LastNameField = ({ field, form: { touched, errors }, ...props }) => (
+  <TextField
+    {...field} {...props}
+    autoComplete="fname"
+    name="firstName"
+    variant="outlined"
+    required
+    fullWidth
+    id="firstName"
+    label="First Name"
+    autoFocus
+  />
+);
+
+const EmailField = ({ field, form: { touched, errors }, ...props }) => (
+  <TextField
+    {...field} {...props}
+    autoComplete="fname"
+    name="firstName"
+    variant="outlined"
+    required
+    fullWidth
+    id="firstName"
+    label="First Name"
+    autoFocus
+  />
+);
+
+const PhoneField = ({ field, form: { touched, errors }, ...props }) => (
+  <TextField
+    {...field} {...props}
+    autoComplete="fname"
+    name="firstName"
+    variant="outlined"
+    required
+    fullWidth
+    id="firstName"
+    label="First Name"
+    autoFocus
+  />
+);
+
+const PasswordField = ({ field, form: { touched, errors }, ...props }) => (
+  <TextField
+    {...field} {...props}
+    autoComplete="fname"
+    name="firstName"
+    variant="outlined"
+    required
+    fullWidth
+    id="firstName"
+    label="First Name"
+    autoFocus
+  />
+);
 
 export default withStyles(style, { withTheme: true })(SignUpCustomerPage);
