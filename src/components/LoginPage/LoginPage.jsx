@@ -1,4 +1,8 @@
 import React from 'react';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import { authenticationService } from '../../services';
+
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -32,7 +36,15 @@ const style = (theme) => ({
 });
 
 class LoginPage extends React.Component {
+  constructor(props) {
+    super(props);
 
+    // redirect to home if already logged in
+    if (authenticationService.currentUserValue) { 
+        this.props.history.push('/dashboard');
+    }
+  }
+  
   render() {
     const { classes } = this.props;
 
@@ -46,40 +58,64 @@ class LoginPage extends React.Component {
           <Typography component="h1" variant="subtitle1">
             Welcome back, please login to your account
           </Typography>
-          <form className={classes.form} noValidate>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              fullWidth
-              id="username"
-              label="Username"
-              name="username"
-              autoComplete="username"
-              autoFocus
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              type="submit"
-            >
-              Sign In
-          </Button>
+          <Formik
+            initialValues={{ username: '', password: '' }}
+            validationSchema={Yup.object().shape({
+              username: Yup.string().required('Username is required'),
+              password: Yup.string().required('Password is required')
+            })}
+            onSubmit={({ username, password }, { setStatus, setSubmitting }) => {
+              console.log("Submit");
+              setStatus();
+              authenticationService.login(username, password).then(
+                user => {
+                  console.log("submitted");
+                  const { from } = this.props.location.state || { from: { pathname: "/" } };
+                  this.props.history.push(from);
+                },
+                error => {
+                  console.log("Error");
+                  setSubmitting(false);
+                  setStatus(error);
+                }
+              );
+            }}
+            render={({ errors, status, touched, isSubmitting }) => (
+              <Form className={classes.form}>
+                <Field 
+                  name="username" 
+                  type="text"
+                  component={LogInField}
+                />
+                <ErrorMessage
+                  name="username"
+                  component="div"
+                />
+                <Field 
+                  name="password"
+                  type="password"
+                  component={PasswordField}
+                />
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                />
+                <FormControlLabel
+                  control={<Checkbox value="remember" color="primary" />}
+                  label="Remember me"
+                />
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                >
+                Sign In
+                </Button>
+              </Form>
+            )}
+          />
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
@@ -92,11 +128,35 @@ class LoginPage extends React.Component {
                 </Link>
               </Grid>
             </Grid>
-          </form>
         </div>
       </Container>
     );
   }
 }
+
+const LogInField = ({field, form: {touched, errors}, ...props}) => (
+  <TextField
+    {...field} {...props}
+    variant="outlined"
+    margin="normal"
+    fullWidth
+    label="Username"
+    autoComplete="username"
+    autoFocus
+  />
+);
+
+const PasswordField = ({field, form: {touched, errors}, ...props}) => (
+  <TextField
+    {...field} {...props}
+    variant="outlined"
+    margin="normal"
+    fullWidth
+    label="Password"
+    type="password"
+    id="password"
+    autoComplete="current-password"
+  />
+)
 
 export default withStyles(style, { withTheme: true })(LoginPage);
