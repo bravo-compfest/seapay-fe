@@ -1,24 +1,11 @@
 import React from 'react';
 
-import { authenticationService } from '../../services';
-
 import NavBar from '../NavBar';
 import CustomerCard from '../CustomerCard';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
 class Dashboard extends React.Component {
-  constructor(props){
-    super(props);
-
-    this.state = {
-      currentUser: authenticationService.currentUserValue
-    }
-  }
-
-  componentDidMount() {
-    const { currentUser } = this.state;
-  }
 
   render() {
     return (
