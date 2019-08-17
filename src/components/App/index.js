@@ -6,6 +6,7 @@ import { history } from '../../helpers';
 import LoginPage from '../LoginPage/LoginPage';
 import SignUpCustomerPage from '../SignUpCustomerPage/SignUpCustomerPage';
 import TopUpPage from '../TopUpPage/TopUpPage';
+import TransferPage from '../TransferPage';
 import Dashboard from '../Dashboard';
 import RolePage from '../RolePage';
 import CustomerCard from '../CustomerCard';
@@ -37,6 +38,7 @@ class App extends React.Component {
         <Route exact path="/signup" component={RolePage} />
         <Route exact path="/signup/customer" component={SignUpCustomerPage} />
         <Route exact path="/topup" component={TopUpPage} />
+        <Route exact path="/transfer" component={TransferPage} />
         <Route exact path="/customer-card" component={CustomerCard} />
         <Route exact path="/item-card" component={ItemCard} />
         <PrivateRoute path="/dashboard" component={Dashboard} />

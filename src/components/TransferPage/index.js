@@ -12,17 +12,26 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function TopUpPage() {
+function TransferPage() {
   const classes = useStyles();
 
   return (
       <Paper className={classes.paper}>
         <Typography variant="h5">
-          Top Up Balance
+          Transfer Balance
         </Typography>
         {/* TODO: Add form and api request */}
         <TextField
-          id="outlined-number"
+            id="username"
+            label="Username"
+            variant="outlined"
+            margin="normal"
+            InputLabelProps={{
+                shrink: true,
+            }}
+        />
+        <TextField
+          id="number"
           label="Nominal"
           type="number"
           InputLabelProps={{
@@ -33,11 +42,11 @@ function TopUpPage() {
         />
         <div>
           <Button variant="contained" color="primary">
-            Top Up
+            Transfer
           </Button>
         </div>
       </Paper>
   );
 }
 
-export default TopUpPage;
+export default TransferPage;
