@@ -44,8 +44,26 @@ class SignUpCustomerPage extends React.Component {
     this.handleSignUp = this.handleSignUp.bind(this);
   }
 
-  handleSignUp(firstName, lastName, email, phone, password) {
-
+  handleSignUp(firstName, lastName, username, email, phone, password) {
+    let name = firstName.trim() + ' ' + lastName.trim();
+    axios({
+      method: 'post',
+      url: 'http://localhost:8088/restapi/customers',
+      data: {
+        name: name,
+        username: username,
+        password: password,
+        email: email,
+        phoneNumber: phone
+      }
+    })
+    .then((response) => {
+      const { from } = this.props.location.state || { from: { pathname: "/" }};
+      this.props.history.push(from);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 
   render() {
@@ -62,19 +80,21 @@ class SignUpCustomerPage extends React.Component {
             Please fill up your details below
           </Typography>
           <Formik
-            initialValues={{ firstName: '', lastName: '', email: '', phone: '', password: '' }}
+            initialValues={{ firstName: '', lastName: '', username: '', email: '', phone: '', password: '' }}
             validationSchema={Yup.object().shape({
               firstName: Yup.string().required('First Name is required'),
+              lastName: Yup.string(),
+              username: Yup.string().required('Username is required'),
               email: Yup.string().required('Email is required'),
               phone: Yup.string().required('Phone Number is required'),
               password: Yup.string().required('Password is required'),
             })}
-            onSubmit={({ firstName, lastName, email, phone, password }) => this.handleSignUp(firstName, lastName, email, phone, password)}
+            onSubmit={({ firstName, lastName, username, email, phone, password }) => this.handleSignUp(firstName, lastName, username, email, phone, password)}
             render={({ errors, status, touched, isSubmiting }) => (
-              <form className={classes.form}>
+              <Form className={classes.form}>
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={6}>
-                    <Field 
+                    <Field
                       name="firstName"
                       type="text"
                       component={FirstNameField}
@@ -85,47 +105,54 @@ class SignUpCustomerPage extends React.Component {
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
-                    <TextField
-                      variant="outlined"
-                      fullWidth
-                      id="lastName"
-                      label="Last Name"
+                    <Field
                       name="lastName"
-                      autoComplete="lname"
+                      type="text"
+                      component={LastNameField}
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    <TextField
-                      variant="outlined"
-                      required
-                      fullWidth
-                      id="email"
-                      label="Email Address"
+                    <Field
+                      name="username"
+                      type="text"
+                      component={UsernameField}
+                    />
+                    <ErrorMessage
+                      name="username"
+                      component="div"
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Field
                       name="email"
-                      autoComplete="email"
+                      type="text"
+                      component={EmailField}
+                    />
+                    <ErrorMessage
+                      name="email"
+                      component="div"
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    <TextField
-                      variant="outlined"
-                      required
-                      fullWidth
-                      id="phoneNumber"
-                      label="Phone Number"
-                      name="phoneNumber"
-                      autoComplete="number"
+                    <Field
+                      name="phone"
+                      type="text"
+                      component={PhoneField}
+                    />
+                    <ErrorMessage
+                      name="phone"
+                      component="div"
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    <TextField
-                      variant="outlined"
-                      required
-                      fullWidth
+                    <Field
                       name="password"
-                      label="Password"
-                      type="password"
-                      id="password"
-                      autoComplete="current-password"
+                      type="text"
+                      component={PasswordField}
+                    />
+                    <ErrorMessage
+                      name="password"
+                      component="div"
                     />
                   </Grid>
                 </Grid>
@@ -145,7 +172,7 @@ class SignUpCustomerPage extends React.Component {
                 </Link>
                   </Grid>
                 </Grid>
-              </form>
+              </Form>
             )}
           />
         </div>
@@ -171,56 +198,65 @@ const FirstNameField = ({ field, form: { touched, errors }, ...props }) => (
 const LastNameField = ({ field, form: { touched, errors }, ...props }) => (
   <TextField
     {...field} {...props}
-    autoComplete="fname"
-    name="firstName"
+    variant="outlined"
+    fullWidth
+    id="lastName"
+    label="Last Name"
+    name="lastName"
+    autoComplete="lname"
+  />
+);
+
+const UsernameField = ({ field, form: { touched, errors }, ...props }) => (
+  <TextField
+    {...field} {...props}
     variant="outlined"
     required
     fullWidth
-    id="firstName"
-    label="First Name"
-    autoFocus
+    id="username"
+    label="Username"
+    name="username"
+    autoComplete="username"
   />
 );
 
 const EmailField = ({ field, form: { touched, errors }, ...props }) => (
   <TextField
     {...field} {...props}
-    autoComplete="fname"
-    name="firstName"
     variant="outlined"
     required
     fullWidth
-    id="firstName"
-    label="First Name"
-    autoFocus
+    id="email"
+    label="Email Address"
+    name="email"
+    autoComplete="email"
   />
 );
 
 const PhoneField = ({ field, form: { touched, errors }, ...props }) => (
   <TextField
     {...field} {...props}
-    autoComplete="fname"
-    name="firstName"
     variant="outlined"
     required
     fullWidth
-    id="firstName"
-    label="First Name"
-    autoFocus
+    id="phone"
+    label="Phone Number"
+    name="phone"
+    autoComplete="number"
   />
 );
 
 const PasswordField = ({ field, form: { touched, errors }, ...props }) => (
   <TextField
     {...field} {...props}
-    autoComplete="fname"
-    name="firstName"
     variant="outlined"
     required
     fullWidth
-    id="firstName"
-    label="First Name"
-    autoFocus
+    name="password"
+    label="Password"
+    type="password"
+    id="password"
+    autoComplete="current-password"
   />
 );
 
