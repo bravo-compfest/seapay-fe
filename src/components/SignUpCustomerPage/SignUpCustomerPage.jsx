@@ -58,8 +58,26 @@ class SignUpCustomerPage extends React.Component {
       }
     })
     .then((response) => {
+      this.addCustomerWallet(response.data.id);
       const { from } = this.props.location.state || { from: { pathname: "/" }};
       this.props.history.push(from);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+
+  addCustomerWallet(userId) {
+    axios({
+      method: 'post',
+      url: 'http://localhost:8081/wallet',
+      data: {
+        userId: userId,
+        balance: 0
+      }
+    })
+    .then((response) => {
+      console.log(response);
     })
     .catch((error) => {
       console.log(error);
